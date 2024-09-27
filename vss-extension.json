@@ -1,9 +1,9 @@
 {
     "manifestVersion": 1,
-    "id": "AIPRReview",
-    "name": "AI PR Review",
-    "version": "0.1.9",
-    "publisher": "Jump Innovations",
+    "id": "JumpCodeWhisper",
+    "name": "Code Whisper",
+    "version": "0.1.0",
+    "publisher": "JumpInnovations",
     "public" : false,
     "galleryFlags": [
         "Public",
@@ -30,7 +30,7 @@
     ],
     "files": [
         {
-            "path": "GPTPullRequestReview"
+            "path": "CodeWhisper"
         }
     ],
     "repository" : {
@@ -44,13 +44,13 @@
     },
     "contributions": [
         {
-            "id": "AIPRReview",
+            "id": "CodeWhisper",
             "type": "ms.vss-distributed-task.task",
             "targets": [
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "AIPRReview"
+                "name": "CodeWhisper"
             }
         }
     ]

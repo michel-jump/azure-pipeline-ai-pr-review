@@ -1,6 +1,6 @@
 {
-  "id": "962a2b6e-0555-477b-b8dc-40a7af3f0c8b",
-  "name": "AIPRReview",
+  "id": "4c105989-4ec6-471b-9275-eaf51d3f8160",
+  "name": "CodeWhisper",
   "friendlyName": "AI PR Review",
   "description": "This task uses the OpenAI API or Anthropic API to review and leave comments on PullRequests",
   "author": "Michel Trouwborst",
@@ -16,7 +16,7 @@
     "Patch": "9"
   },
   "minimumAgentVersion": "1.95.0",
-  "instanceNameFormat": "AIPRReview $(message)",
+  "instanceNameFormat": "CodeWhisper $(message)",
   "inputs": [
     {
       "name": "api_provider",

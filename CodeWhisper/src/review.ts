@@ -3,7 +3,7 @@ import { git } from './git';
 import OpenAI from 'openai';
 import { addCommentToPR } from './pr';
 import { Agent } from 'https';
-import * as tl from "azure-pipelines-task-lib/task";
+import * as tl from "azure-pipelines-task-lib";
 import Anthropic from '@anthropic-ai/sdk';
 import { defaultAIInstruction } from './utils';
 
