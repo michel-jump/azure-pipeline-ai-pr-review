@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "JumpCodeWhisper",
     "name": "Code Whisper",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "JumpInnovations",
     "public" : false,
     "galleryFlags": [
