@@ -1,10 +1,10 @@
 {
   "id": "962a2b6e-0555-477b-b8dc-40a7af3f0c8b",
-  "name": "AIPullRequestReview",
+  "name": "AIPRReview",
   "friendlyName": "AI PR Review",
-  "description": "This task use OpenAi API to review and leave comments on PullRequests",
-  "author": "Jacques Saunders",
-  "helpMarkDown": "[More Information](https://github.com/97saundersj/azure-pipeline-ai-pr-review)",
+  "description": "This task uses the OpenAI API or Anthropic API to review and leave comments on PullRequests",
+  "author": "Michel Trouwborst",
+  "helpMarkDown": "[More Information](https://github.com/michel-jump/azure-pipeline-ai-pr-review)",
   "category": "Utility",
   "visibility": [
     "Build"
@@ -16,44 +16,41 @@
     "Patch": "9"
   },
   "minimumAgentVersion": "1.95.0",
-  "instanceNameFormat": "AIPullRequestReview $(message)",
+  "instanceNameFormat": "AIPRReview $(message)",
   "inputs": [
+    {
+      "name": "api_provider",
+      "type": "pickList",
+      "label": "API Provider",
+      "required": true,
+      "options": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic"
+      },
+      "helpMarkDown": "Select the API provider to use."
+    },
     {
       "name": "api_key",
       "type": "string",
       "label": "Api key",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Api key of OpenAi or Azure OpenAI."
+      "helpMarkDown": "Api key of OpenAI or Anthropic."
     },
     {
       "name": "model",
       "type": "pickList",
-      "label": "OpenAI model",
+      "label": "AI model",
       "required": false,
       "options": {
         "": "",
-        "gpt-4": "GPT 4",
+        "gpt-4o": "GPT 4o",
         "gpt-3.5-turbo": "GPT 3.5 Turbo",
-        "gpt-3.5-turbo-16k": "GPT 3.5 Turbo 16k"
+        "claude-3-opus-20240229": "Claude 3 Opus",
+        "claude-3-5-sonnet-20240620": "Claude 3.5 Sonnet",
+        "claude-3-haiku-20240307": "Claude 3 Haiku"
       },
-      "helpMarkDown": "The OpenAI model to use. not used if you use Azure OpenAI. if no model is selected, the GPT 3.5 Turbo model is used."
-    },
-    {
-      "name": "aoi_endpoint",
-      "type": "string",
-      "label": "Azure OpenApi Endpoint",
-      "defaultValue": "",
-      "required": false,
-      "helpMarkDown": "Azure OpenApi Endpoint, leave empty to use default endpoint. (optional)"
-    },
-    {
-      "name": "support_self_signed_certificate",
-      "type": "boolean",
-      "label": "Support self-signed certificate",
-      "defaultValue": "false",
-      "required": false,
-      "helpMarkDown": "Select this option to support self-signed certificate."
+      "helpMarkDown": "The AI model to use."
     },
     {
       "name": "ai_instructions",

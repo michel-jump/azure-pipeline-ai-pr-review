@@ -1,10 +1,11 @@
 import * as tl from "azure-pipelines-task-lib/task";
-import { Configuration, OpenAIApi } from 'openai';
+import { OpenAI } from 'openai';
 import { deleteExistingComments } from './pr';
 import { reviewFile } from './review';
 import { getTargetBranchName } from './utils';
 import { getChangedFiles } from './git';
 import https from 'https';
+import Anthropic from "@anthropic-ai/sdk";
 
 async function run() {
   try {
@@ -13,22 +14,36 @@ async function run() {
       return;
     }
 
-    let openai: OpenAIApi | undefined;
-    const supportSelfSignedCertificate = tl.getBoolInput('support_self_signed_certificate');
+    let ai: OpenAI | Anthropic | undefined;
+    const supportSelfSignedCertificate = false;
+    const apiProvider = tl.getInput('api_provider', true);
     const apiKey = tl.getInput('api_key', true);
-    const aoiEndpoint = tl.getInput('aoi_endpoint');
+    const model = tl.getInput('model', true);
+
+    if (apiProvider == undefined) {
+      tl.setResult(tl.TaskResult.Failed, 'No API provider provided!');
+      return;
+    }
 
     if (apiKey == undefined) {
       tl.setResult(tl.TaskResult.Failed, 'No Api Key provided!');
       return;
     }
 
-    if (aoiEndpoint == undefined) {
-      const openAiConfiguration = new Configuration({
+    if (model == undefined) {
+      tl.setResult(tl.TaskResult.Failed, 'No AI model provided!');
+      return;
+    }
+
+    if (apiProvider == 'openai') {
+      ai = new OpenAI({
         apiKey: apiKey,
       });
-
-      openai = new OpenAIApi(openAiConfiguration);
+    }
+    else if (apiProvider == 'anthropic') {
+      ai = new Anthropic({
+        apiKey: apiKey,
+      });
     }
 
     const httpsAgent = new https.Agent({
@@ -47,7 +62,7 @@ async function run() {
     await deleteExistingComments(httpsAgent);
 
     for (const fileName of filesNames) {
-      await reviewFile(targetBranch, fileName, httpsAgent, apiKey, openai, aoiEndpoint)
+      await reviewFile(targetBranch, fileName, httpsAgent, apiKey, ai, model)
     }
 
     tl.setResult(tl.TaskResult.Succeeded, "Pull Request reviewed.");

@@ -27,4 +27,5 @@ As a code reviewer, your task is:
   - Review only added, edited, or deleted lines.
   - If there's no bugs and the changes are correct, write only 'No feedback.'
   - If there's a bug or incorrect code changes, don't write 'No feedback.'
+  - Always respond in Dutch.
 `;
